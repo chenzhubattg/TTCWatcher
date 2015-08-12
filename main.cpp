@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QDir>
 #include<QDateTime>
+<<<<<<< HEAD
 #include<QFile>
 #include<QTextStream>
 #include <QSettings>
@@ -13,6 +14,8 @@
 #include <QList>
 #include <QNetworkInterface>
 
+=======
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 
 using namespace std;
 TCPServer *pserver;
@@ -20,7 +23,11 @@ TCPClient *pclient;
 
 int main(int argc, char *argv[])
 {
+<<<<<<< HEAD
 
+=======
+  //  InitSystemParam();
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
     QCoreApplication a(argc, argv);
     QDir dirLog;
     QString strLogPath = QString("%1/WatcherLog").arg(QDir::currentPath());
@@ -33,6 +40,7 @@ int main(int argc, char *argv[])
         QString strLog("Creating log file is failure!");
         LogOut(strLog);
     }
+<<<<<<< HEAD
     //make log directory
     QDir dirWork;
     glbstrWorkDir = QString("%1/WatcherWork").arg(QDir::currentPath());
@@ -58,6 +66,15 @@ int main(int argc, char *argv[])
 
 
     pserver = new TCPServer(NULL,glbLocalPort);
+=======
+
+    QDir dirWork;
+    glbstrWorkDir = QString("%1/WatcherWork").arg(QDir::currentPath());
+    dirWork.mkdir(glbstrWorkDir);
+
+    //pserver = new TCPServer(NULL,glbLocalPort);
+    glbServerPort = 7002;
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
     pclient = new TCPClient(glbServerAdress,glbServerPort);
     return a.exec();
 }

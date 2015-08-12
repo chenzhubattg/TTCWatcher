@@ -4,8 +4,12 @@
 #include <QString>
 #include<QFile>
 
+<<<<<<< HEAD
 #pragma pack(push)
 #pragma pack(1)
+=======
+
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 
 using namespace std;
 extern const QString glbstrXMLParamFile;
@@ -17,6 +21,7 @@ extern QString glbServerAdress;
 extern int         glbServerPort;
 extern QString glbstrWorkDir;   //Save XML and GRC File
 extern QFile glbfileLog;
+<<<<<<< HEAD
 extern QString glbLocalGRIDName;
 extern QString glbBlockPath;
 extern QString glbPyFileName;
@@ -24,6 +29,9 @@ extern QString glbExePyFile;
 extern QString glbExePythonPath;
 extern QString XMLStatusFileName ;
 extern bool temp;
+=======
+
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 /*const int CMD_LOAD = 0x0001;
 const int CMD_LOAD_RES = 0x0101;
 const int CMD_START = 0x0002;
@@ -82,7 +90,11 @@ public:
         cmd = 0x11;
     }
     char FLAG[4];
+<<<<<<< HEAD
     qint32 DATA_LEN;
+=======
+    qint16 DATA_LEN;
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
     qint16 cmd;
 };//head for msg
 
@@ -123,7 +135,10 @@ extern bool KillProcess(QString sName);
 extern void InitSystemParam();
 extern void LogOut(QString strLog);
 extern void LogFile(QFile &file, QString strLog);
+<<<<<<< HEAD
 extern bool FileExists(QString FileName,int nTime);
 #pragma pack(pop)
+=======
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 #endif  // DATACLASS
 

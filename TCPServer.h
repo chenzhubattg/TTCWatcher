@@ -26,7 +26,10 @@ public slots:
 public:
     void SendMsg(const char *pdata,int length);
     void Log(QString &strLog,int type,bool display);
+<<<<<<< HEAD
     int     ClientsNum();
+=======
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 protected:
     void incomingConnection(qintptr socketDescriptor);
 };

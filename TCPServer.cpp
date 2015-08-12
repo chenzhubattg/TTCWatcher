@@ -5,6 +5,7 @@ using namespace std;
 TCPServer::TCPServer(QObject *parent,int port)
     :QTcpServer(parent)
 {
+<<<<<<< HEAD
     QString strLog;
     if(listen(QHostAddress::Any,port))
     {
@@ -16,6 +17,18 @@ TCPServer::TCPServer(QObject *parent,int port)
     {
         strLog = "Fail to start Listening,Port:" + QString::number(port);
         LogFile(glbfileLog,strLog);
+=======
+//  connect(,SIGNAL(readyRead()),this,SLOT(dataReceived()));
+
+
+    if(listen(QHostAddress::Any,port))
+    {
+        cout << "Watcher start listening" << endl;
+    }
+    else
+    {
+        cout << "Listening is failed! " << endl;
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
     }
 }
 
@@ -26,9 +39,19 @@ void TCPServer::incomingConnection(qintptr socketDescriptor)
     connect(tcpClientSocket,SIGNAL(disconnected(int)),this,SLOT(slotDisconnected(int)));
     connect(tcpClientSocket,SIGNAL(readyRead()),this,SLOT(dataReceived()));
     tcpClientSocket->setSocketDescriptor(socketDescriptor);
+<<<<<<< HEAD
     tcpClientSocketList.append(tcpClientSocket);    
     QString strLog = QString("%1(%2) connect MonitorServer.").arg(tcpClientSocket->peerAddress().toString()).arg(tcpClientSocket->peerPort());
     LogFile(glbfileLog, strLog);
+=======
+   QHostAddress	 add = tcpClientSocket->localAddress();
+   quint16 port = tcpClientSocket->localPort();
+   qDebug() << add.toString() << " port:"<< port;
+    tcpClientSocketList.append(tcpClientSocket);
+//    timer = new QTimer(this);
+  //    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+  //    timer->start(1000);
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 }
 void TCPServer::update()
 {
@@ -95,12 +118,15 @@ void TCPServer::Log(QString &strLog,int type = 0,bool display = false)
 
 }
 
+<<<<<<< HEAD
 int TCPServer::ClientsNum()
 {
     return tcpClientSocketList.count();
 
 }
 
+=======
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 void TCPServer::SendMsg(const char *pdata,int length)
 {
     for(int i=0;i<tcpClientSocketList.count();i++)
@@ -112,5 +138,8 @@ void TCPServer::SendMsg(const char *pdata,int length)
         }
     }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1

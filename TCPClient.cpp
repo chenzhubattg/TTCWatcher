@@ -5,11 +5,15 @@
 #include "common.h"
 #include <QFile>
 #include "TCPServer.h"
+<<<<<<< HEAD
 #include <TTCdsp/Optimize.h>
+=======
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 
 extern TCPServer *pserver;
 using namespace std;
 TCPClient::TCPClient(QString  serverIpAdress,int serverPort)
+<<<<<<< HEAD
 {
 
     strServerAddress = serverIpAdress; //QString::fromStdString(string(serverIpAdress));       //("%1").arg(s = serverIpAdress;
@@ -30,11 +34,35 @@ TCPClient::TCPClient(QString  serverIpAdress,int serverPort)
         if (tcpSocket->waitForConnected(2000))
         {
             LogFile(glbfileLog,"Connected TTCServer successuflly." );
+=======
+ {
+
+     strServerAddress = serverIpAdress; //QString::fromStdString(string(serverIpAdress));       //("%1").arg(s = serverIpAdress;
+     nServerPort = serverPort;
+
+    status = false;
+
+
+
+    serverIP =new QHostAddress();
+    serverIP->setAddress(strServerAddress);
+    tcpSocket = new QTcpSocket();
+    QString strInfo;
+    strInfo = QString("Try to connect TTCServer(%1:%2)").arg(strServerAddress).arg(nServerPort);
+    cout << strInfo.toStdString().c_str() << endl;
+    while (1)
+    {
+        tcpSocket->connectToHost(*serverIP,nServerPort);
+        if (tcpSocket->waitForConnected(2000))
+        {
+            cout << "Connected TTCServer successuflly." << endl;
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
             break;
         }
         else
         {
             QTest::qWait(1000);
+<<<<<<< HEAD
             LogFile(glbfileLog,strInfo);
 
         }
@@ -43,6 +71,13 @@ TCPClient::TCPClient(QString  serverIpAdress,int serverPort)
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(SendStatus()));
 
+=======
+            cout << "Try again." << endl;
+        }
+       }
+    connect(tcpSocket,SIGNAL(disconnected()),this,SLOT(slotDisconnected()));
+    connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(dataReceived()));
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 }
 
 TCPClient::~TCPClient()
@@ -61,6 +96,7 @@ void TCPClient::slotSend()
 {
 }
 
+<<<<<<< HEAD
 void TCPClient::SendStatus()
 {
 //    if (XMLStatusFileName.length() == 0)
@@ -107,6 +143,11 @@ void TCPClient::slotDisconnected()
 {
     QString strLog = "Disconnected Server";
     LogFile(glbfileLog,strLog);
+=======
+void TCPClient::slotDisconnected()
+{
+    cout <<  "disconnected server." << endl;
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 }
 
 void TCPClient::dataReceived()
@@ -125,7 +166,10 @@ void TCPClient::dataReceived()
                 break ;
             }
             //2.读BODY,并移动流指针
+<<<<<<< HEAD
             qDebug() << dataFlow.size();
+=======
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
             if(q-p<sizeof(stFrameHeader)+header.DATA_LEN)
                 break ;//内容不完整包，退出
             readMsgBody(&header, p+sizeof(stFrameHeader),header.DATA_LEN);
@@ -136,7 +180,11 @@ void TCPClient::dataReceived()
 }
 
 
+<<<<<<< HEAD
 void TCPClient::readMsgBody(stFrameHeader *header,char * body,qint32 bodyLength)
+=======
+void TCPClient::readMsgBody(stFrameHeader *header,char * body,int bodyLength)
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 {
     qint16 cmd = header->cmd;
     QString strLog;
@@ -144,6 +192,7 @@ void TCPClient::readMsgBody(stFrameHeader *header,char * body,qint32 bodyLength)
     {
     case CMD_LOAD:                                //  Load *.grc and *.xml of flow graph
     {
+<<<<<<< HEAD
         LogFile(glbfileLog,"Receive CMD_LOAD cmd.");
         //QDir dirWork;
         //glbstrWorkDir = QString("%1/WatcherWork").arg(QDir::currentPath());
@@ -155,6 +204,14 @@ void TCPClient::readMsgBody(stFrameHeader *header,char * body,qint32 bodyLength)
         copyfile.copy(tcpsourcepy,tcpclientpy);
 
 
+=======
+  //      if (glbWatcherStatus != Idle)
+ //       {
+  //          strLog = "System is running,LOAD_CMD is rejected.";
+   //         LogFile(glbfileLog,strLog);
+    //    }
+        LogFile(glbfileLog,"Receive CMD_LOAD cmd.");
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
         char FileName[56];
         memcpy(FileName,body,56);
         QString GrcFileName(FileName);
@@ -162,6 +219,7 @@ void TCPClient::readMsgBody(stFrameHeader *header,char * body,qint32 bodyLength)
         QFile GrcFile(GrcFileName);
         if (!GrcFile.open(QIODevice::ReadWrite | QIODevice::Truncate))
         {
+<<<<<<< HEAD
             strLog = "Can't open" + GrcFileName +"file." ;
             LogFile(glbfileLog,strLog);
             return ;
@@ -172,19 +230,36 @@ void TCPClient::readMsgBody(stFrameHeader *header,char * body,qint32 bodyLength)
         {
             strLog = "Save GRC file failed" ;
             LogFile(glbfileLog,strLog);
+=======
+             strLog = "Can't open" + GrcFileName +"file." ;
+            LogFile(glbfileLog,strLog);
+            return ;
+        }
+        int fileLen = *(int *)(body + 56);
+        char *pdata = body + 56 + sizeof(int);
+        if (fileLen != GrcFile.write(pdata,fileLen))
+        {
+            strLog = "Save GRC file failed" ;
+           LogFile(glbfileLog,strLog);
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
             GrcFile.close();
             return;
         }
         else
         {
             strLog = "Save GRC file successuflly!!!" ;
+<<<<<<< HEAD
             LogFile(glbfileLog,strLog);
+=======
+           LogFile(glbfileLog,strLog);
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
         }
         GrcFile.close();
         //Save XML file
         pdata = pdata + fileLen;
         memcpy(FileName,pdata,56);
         QString XMLFileName(FileName);
+<<<<<<< HEAD
         QString XMLPureFileName = XMLFileName;
         XMLFileName = glbstrWorkDir + "/" + XMLPureFileName;
         QFile XMLFile(XMLFileName);
@@ -200,11 +275,28 @@ void TCPClient::readMsgBody(stFrameHeader *header,char * body,qint32 bodyLength)
         {
             strLog = "Write XML failed" ;
             LogFile(glbfileLog,strLog);
+=======
+        XMLFileName = glbstrWorkDir + "/" + XMLFileName;
+        QFile XMLFile(XMLFileName);
+        if (!XMLFile.open(QIODevice::ReadWrite | QIODevice::Truncate))
+        {
+             strLog = "Can't open" + XMLFileName +"file!" ;
+            LogFile(glbfileLog,strLog);
+            return ;
+        }
+        fileLen = *(int *)(pdata + 56);
+        pdata = pdata + 56 + sizeof(int);
+        if (fileLen!= XMLFile.write(pdata,fileLen))
+        {
+            strLog = "Write XML failed" ;
+           LogFile(glbfileLog,strLog);
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
             XMLFile.close();
             return;
         }
         else
         {
+<<<<<<< HEAD
             strLog = "Save XML file successuflly!!!" ;
             LogFile(glbfileLog,strLog);
         }
@@ -441,12 +533,33 @@ void TCPClient::readMsgBody(stFrameHeader *header,char * body,qint32 bodyLength)
         }
         break;
     }
+=======
+            strLog = "Save GRC file successuflly!!!" ;
+           LogFile(glbfileLog,strLog);
+        }
+        XMLFile.close();
+        //WatcherServer *pWserver = (WatcherServer *) m_pWatcherServer;
+       // pWserver->updateClients((char *)header,sizeof(stFrameHeader));
+      //  pWserver->updateClients(body,bodyLength);
+        break;
+    }
+    case CMD_START:                              //  Running signal processing program in each nodes.
+        break;
+    case  CMD_KILL:                                  //  Kill signal processing thread in each nodes.
+        break;
+    case  CMD_SETPARAM:                      //   Set system param by relaying *.xml
+        break;
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
     case  CMD_GETSTATUS:                     //   Get system status by relaying *.xml
         break;
     }
 
+<<<<<<< HEAD
     temp = true;
     /*   qint16 cmd = header.cmd;
+=======
+ /*   qint16 cmd = header.cmd;
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
     switch (cmd) {
     case CMD_LOAD:
     {

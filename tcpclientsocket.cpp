@@ -42,7 +42,11 @@ void TcpClientSocket::dataReceived()
 
 void TcpClientSocket::readMsgBody(stFrameHeader &header,char * body,int bodyLength)
 {
+<<<<<<< HEAD
     /*qint16 cmd = header.cmd;
+=======
+ /*   qint16 cmd = header.cmd;
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
     switch (cmd) {
     case CMD_LOAD:
     {

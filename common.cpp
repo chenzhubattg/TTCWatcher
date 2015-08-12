@@ -15,6 +15,7 @@ const QString glbstrXMLParamFile = "Top_block_param.xml";
 QString glbExeName = "top_block.py";
 QString glbLocalAdress = "127.0.0.1";
 int         glbLocalPort = 8010;
+<<<<<<< HEAD
 QString glbServerAdress = "192.168.0.110";
 int         glbServerPort = 7002;
 QString glbBlockPath = "~/TTCBlock";
@@ -24,6 +25,10 @@ QString glbExePyFile =      "EXE_" + glbPyFileName;                             
 QString glbExePythonPath;
 QString XMLStatusFileName ;
 bool temp = false;
+=======
+QString glbServerAdress = "127.0.0.1";
+int         glbServerPort = 9010;
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 
 QString glbstrWorkDir;
 QFile glbfileLog;
@@ -32,6 +37,7 @@ void InitSystemParam()
 {
     QDir dir = QDir::	current();
     QString sFile = "Option.ini";
+<<<<<<< HEAD
    if (!dir.exists(sFile))
    {
        cout << "Info:Option.ini is not existed,the program will build a new Option.ini."<<endl;
@@ -52,6 +58,28 @@ void InitSystemParam()
     glbExeName = settings.value("DevOption/glbExeName").toString();
 }
 
+=======
+    if (!dir.exists(sFile))
+    {
+        cout << "Info:Option.ini is not existed,the program will build a new Option.ini."<<endl;
+        QSettings settings("Option.ini", QSettings::IniFormat); // 当前目录的INI文件
+        settings.beginGroup("DevOption");
+        settings.setValue("glbLocalAdress", glbLocalAdress);
+        settings.setValue("glbLocalPort", glbLocalPort);
+        settings.setValue("glbServerAdress", glbServerAdress);
+        settings.setValue("glbServerPort", glbServerPort);
+        settings.setValue("glbExeName", glbExeName);
+        settings.endGroup();
+    }
+
+    QSettings settings("Option.ini", QSettings::IniFormat); // 当前目录的INI文件
+    glbLocalAdress = settings.value("DevOption/glbLocalAdress").toString();
+    glbLocalPort = settings.value("DevOption/glbLocalPort").toInt();
+    glbServerAdress = settings.value("DevOption/glbServerAdress").toString();
+    glbServerPort = settings.value("DevOption/glbServerPort").toInt();
+    glbExeName = settings.value("DevOption/glbExeName").toString();
+}
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
 bool KillProcess(QString sName)
 {
     QString RE = "\\d\\d:\\d\\d:\\d\\d python " +  sName; //  python top_block.py";
@@ -111,6 +139,7 @@ void LogFile(QFile &file, QString strLog)
 
 }
 
+<<<<<<< HEAD
 
 //check if a file existed in a directionary,
 //if the file dose not exested, the function will check it per 100 mseconeds until it existed or the time is more than nTime(mseconed).
@@ -129,3 +158,5 @@ bool FileExists(QString FileName,int nTime)
     return false;
 }
 
+=======
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1

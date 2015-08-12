@@ -28,5 +28,8 @@ HEADERS += \
     tcpclientsocket.h \
     TCPClient.h \
     common.h
+<<<<<<< HEAD
 
 LIBS += /usr/local/lib/libOptProgram.so
+=======
+>>>>>>> 8409a114d95e9278c6d5caba02f6110cdf178be1
